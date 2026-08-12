@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الموسوعة الشاملة للباريستا | فرح ☕</title>
+    <style>
+        :root {
+            --bg-dark: #0a0d14;
+            --card-bg: #141a29;
+            --accent-gold: #f39c12;
+            --text-light: #ffffff;
+            --text-muted: #a0aab5;
+            --border-color: #2c3a57;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+
+        #welcome-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            text-align: center;
+            border: 4px solid var(--accent-gold);
+            box-sizing: border-box;
+        }
+
+        #welcome-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        #welcome-subtext {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 40px;
+        }
+
+        .start-btn {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border-radius: 35px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+            background-color: #fff;
+        }
+
+        #main-content {
+            padding: 30px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 3px solid var(--accent-gold);
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--accent-gold);
+            font-size: 2.6rem;
+            margin: 0 0 10px 0;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: var(--card-bg);
+            color: var(--text-light);
+            border: 2px solid var(--border-color);
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .tab-btn.active {
+            background-color: var(--accent-gold);
+            color: var(--bg-dark);
+            border-color: var(--accent-gold);
+        }
+
+        .section-panel {
+            display: none;
+        }
+
+        .section-panel.active {
+            display: block;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .recipe-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .recipe-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .recipe-body {
+            padding: 25px;
+        }
+
+        .recipe-body h3 {
+            color: var(--accent-gold);
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .spec-table td {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 1rem;
+        }
+
+        .spec-table td:last-child {
+            text-align: left;
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+
+        .steps-title {
+            font-weight: bold;
+            color: #fff;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        .steps-list {
+            padding-right: 20px;
+            margin: 10px 0 0 0;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .article-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-right: 6px solid var(--accent-gold);
+            border-top: 2px solid var(--border-color);
+            border-left: 2px solid var(--border-color);
+            border-bottom: 2px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .article-card h3 {
+            color: var(--accent-gold);
+            margin-top: 0;
+            font-size: 1.6rem;
+        }
+
+        .article-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .article-steps {
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px dashed var(--accent-gold);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            border-top: 2px solid var(--border-color);
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="welcome-screen">
+        <div id="welcome-text">أهلاً بك في عالم الباريستا</div>
+        <div id="welcome-subtext">WELCOME TO BARISTA WORLD</div>
+        <button class="start-btn" onclick="document.getElementById('welcome-screen').style.display='none';">ابدأ الدليل | START</button>
+    </div>
+
+    <div id="main-content">
+        <header>
+            <h1>BARISTA ENCYCLOPEDIA</h1>
+            <p style="color: var(--text-muted); font-size: 1.2rem;">الموسوعة الشاملة والمعايير القياسية العالمية لإعداد المشروبات وتدريب الباريستا | فرح</p>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchSection('ice-coffee', this)">Ice Coffee (المشروبات الباردة)</button>
+            <button class="tab-btn" onclick="switchSection('hot-coffee', this)">Hot Coffee (المشروبات الساخنة)</button>
+            <button class="tab-btn" onclick="switchSection('specialty', this)">Specialty Coffee (التعليم والمقالات)</button>
+        </div>
+
+        <!-- الباردة -->
+        <div id="ice-coffee" class="section-panel active">
+            <div class="grid-container">
+                <div class="recipe-card">
+                    <!-- تم استبدال الرابط برابط مباشر عالمي لا يحجب -->
+                    <img src="https://pexels.com" class="recipe-img" alt="Iced Spanish Latte">
+                    <div class="recipe-body">
+                        <h3>Iced Spanish Latte | سبانش لاتيه</h3>
+                        <table class="spec-table">
+                            <tr><td>الحجم المعتمد</td><td>12 Oz / 350 ml</td></tr>
+                            <tr><td>جرعة الإسبريسو</td><td>Double Shot (36g Yield)</td></tr>
+                            <tr><td>الحليب المكثف المحلى</td><td>20 ml</td></tr>
+                            <tr><td>الحليب الطازج</td><td>120 ml كامل الدسم</td></tr>
+                            <tr><td>كمية الثلج</td><td>كوب ممتلئ مكعبات صلبة</td></tr>
+                        </table>
+                        <div class="steps-title">طريقة التحضير القياسية:</div>
+                        <ol class="steps-list">
+                            <li>صب الحليب المكثف في قاع الكوب الزجاجي.</li>
+                            <li>أضف الحليب البارد وقم بالتحريك الخفيف ليتم الامتزاج الأولي.</li>
+                            <li>املأ الكوب بالثلوج تماماً لضمان برودة وفصل الطبقات.</li>
+                            <li>استخلص الإسبريسو واسكبه بلطف فوق السطح ليعطي شكل الطبقات الرايق.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="recipe-card">
+                    <!-- تم استبدال الرابط برابط مباشر عالمي لا يحجب -->
+                    <img src="https://pexels.com" class="recipe-img" alt="Iced White Mocha">
+                    <div class="recipe-body">
+                        <h3>Iced White Mocha | وايت موكا بارد</h3>
+                        <table class="spec-table">
+                            <tr><td>الحجم المعتمد</td><td>12 Oz / 350 ml</td></tr>
+                            <tr><td>جرعة الإسبريسو</td><td>Double Shot</td></tr>
+                            <tr><td>صوص الشوكولاتة البيضاء</td><td>30 ml براند فاخر</td></tr>
+                            <tr><td>الحليب الطازج</td><td>110 ml</td></tr>
+                            <tr><td>الرغوة العلوية</td><td>كريمة مخفوقة غنية</td></tr>
+                        </table>
+                        <div class="steps-title">طريقة التحضير القياسية:</div>
+                        <ol class="steps-list">
+                            <li>امزج صوص الشوكولاتة البيضاء مع الإسبريسو الساخن مباشرة في كوب خارجي لتذويبه.</li>
+                            <li>اسكب المزيج في الكوب الأساسي، ثم أضف الحليب البارد وحرك جيداً حتى يتجانس.</li>
+                            <li>أضف مكعبات الثلج، ثم ضع الكريمة المخفوقة على السطح بشكل جمالي دائرى.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
